@@ -12,5 +12,24 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
+});
+
+Route::get('/test', function () {
+    return 'Test';
+});
+
+//Route::auth();
+
+Route::get('/home', 'HomeController@index');
+Route::group(['prefix' => 'api', 'middleware' => 'cors'], function () {
+    Route::post("login", "AuthenticateController@authenticate");
+    Route::post('/register', 'AuthenticateController@register');
+
+    Route::group(['middleware' => 'jwt.auth'], function () {
+        Route::resource('posts', 'PostController');
+        Route::get('userinfo', function () {
+            return JWTAuth::parseToken()->authenticate();
+        });
+    });
 });
