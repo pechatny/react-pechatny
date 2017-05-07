@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Http\Request;
+use App\User;
+//use Tymon\JWTAuth\Facades\JWTAuth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,20 +19,19 @@ Route::get('/', function () {
 });
 
 Route::get('/test', function () {
-    return 'Test';
+    return 'test data';
 });
 
-//Route::auth();
+Route::auth();
 
 Route::get('/home', 'HomeController@index');
 Route::group(['prefix' => 'api', 'middleware' => 'cors'], function () {
     Route::post("login", "AuthenticateController@authenticate");
     Route::post('/register', 'AuthenticateController@register');
 
-    Route::group(['middleware' => 'jwt.auth'], function () {
-        Route::resource('posts', 'PostController');
-        Route::get('userinfo', function () {
-            return JWTAuth::parseToken()->authenticate();
-        });
+    Route::resource('posts', 'PostController');
+    Route::get('userinfo', function () {
+        return 'tmpData';
+        //return JWTAuth::parseToken()->authenticate();
     });
 });

@@ -2,20 +2,21 @@ version: '2'
 
 services:
     nginx:
-        image: nginx:latest
+        build: ./docker/nginx
         ports:
             - "8080:80"
         volumes:
             - .:/code
-            - ./site.conf:/etc/nginx/conf.d/default.conf
         networks:
             - code-network
     php:
-        image: php:fpm
+        build: ./docker/php
         volumes:
             - .:/code
         networks:
             - code-network
+        links:
+            - postgres:db
     npm:
         image: node:7.10
         volumes:
@@ -28,6 +29,23 @@ services:
         volumes:
             - .:/code
         working_dir: /code
+        networks:
+            - code-network
+    artisan:
+        image: dylanlindgren/docker-laravel-artisan
+        volumes:
+            - .:/code
+        working_dir: /code
+        networks:
+            - code-network
+        links:
+            - postgres:db
+    postgres:
+        image: postgres:9.6.1
+        ports:
+            - 5432:5432
+        environment:
+            POSTGRES_PASSWORD: secret
         networks:
             - code-network
 networks:
