@@ -6,6 +6,8 @@ use App\Post;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Auth;
+use JWTAuth;
 
 class PostController extends Controller
 {
@@ -13,15 +15,17 @@ class PostController extends Controller
     {
         $posts = Post::all();
 
-        return response()->json($posts,200);
+        return response()->json($posts, 200);
     }
 
     public function store(Request $request)
     {
+        //$user = Auth::user();
+        //dd($user);
         $post = Post::create([
             'title' => $request->input("title"),
-             'body' => $request->input('body'),
-             'user_id' => 1
+            'body' => $request->input('body'),
+            'user_id' => Auth::user()->id
         ]);
     }
 

@@ -2,9 +2,7 @@
 
 return [
 
-    /*
-    |--------------------------------------------------------------------------
-    | Application Name
+    /* |-------------------------------------------------------------------------- | Application Name
     |--------------------------------------------------------------------------
     |
     | This value is the name of your application. This value is used when the
@@ -20,8 +18,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | This value determines the "environment" your application is currently
-    | running in. This may determine how you prefer to configure various
-    | services your application utilizes. Set this in your ".env" file.
+    | running in. This may determine how you prefer to configure various | services your application utilizes. Set this in your ".env" file.
     |
     */
 
@@ -178,6 +175,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Collective\Html\HtmlServiceProvider::class,
+        Barryvdh\Cors\ServiceProvider::class,
+        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class
     ],
 
     /*
@@ -228,6 +227,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'JWTAuth'   => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class
     ],
 
 ];

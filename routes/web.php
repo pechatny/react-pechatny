@@ -22,16 +22,5 @@ Route::get('/test', function () {
     return 'test data';
 });
 
-Route::auth();
 
 Route::get('/home', 'HomeController@index');
-Route::group(['prefix' => 'api', 'middleware' => 'cors'], function () {
-    Route::post("login", "AuthenticateController@authenticate");
-    Route::post('/register', 'AuthenticateController@register');
-
-    Route::resource('posts', 'PostController');
-    Route::get('userinfo', function () {
-        return 'tmpData';
-        //return JWTAuth::parseToken()->authenticate();
-    });
-});

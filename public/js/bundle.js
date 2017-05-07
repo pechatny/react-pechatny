@@ -28558,6 +28558,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var ROOT_URL = 'http://0.0.0.0:8080';
+
 	function loginUser(_ref) {
 	    var email = _ref.email,
 	        password = _ref.password;
@@ -28609,7 +28610,7 @@
 
 	    return function (dispatch) {
 	        _axios2.default.post(ROOT_URL + '/api/posts', { title: title, body: body }, {
-	            headers: { authorization: localStorage.getItem('token') }
+	            headers: { authorization: 'Bearer' + localStorage.getItem('token') }
 	        }).then(function (response) {
 	            dispatch({
 	                type: _types.ADD_POST,
@@ -28623,7 +28624,7 @@
 	    return function (dispatch) {
 	        dispatch({ type: _types.FETCH_POST });
 	        _axios2.default.get(ROOT_URL + '/api/posts', {
-	            headers: { authorization: localStorage.getItem('token') }
+	            headers: { authorization: 'Bearer' + localStorage.getItem('token') }
 	        }).then(function (response) {
 	            dispatch(fetchPostSuccess(response));
 	        });
@@ -28641,7 +28642,7 @@
 	    return function (dispatch) {
 	        dispatch({ type: _types.POST_SHOW });
 	        _axios2.default.get(ROOT_URL + '/api/posts/' + id, {
-	            headers: { authorization: localStorage.getItem('token') }
+	            headers: { authorization: 'Bearer' + localStorage.getItem('token') }
 	        }).then(function (response) {
 	            dispatch(postShowSuccess(response));
 	        });
@@ -28659,12 +28660,13 @@
 	    return function (dispatch) {
 	        dispatch({ type: _types.EDIT_POST });
 	        _axios2.default.get(ROOT_URL + '/api/posts/' + id + '/edit', {
-	            headers: { authorization: localStorage.getItem('token') }
+	            headers: { authorization: 'Bearer' + localStorage.getItem('token') }
 	        }).then(function (response) {
 	            dispatch(editPostSuccess(response));
 	        });
 	    };
 	}
+
 	function editPostSuccess(posts) {
 	    return {
 	        type: _types.EDIT_POST_SUCCESS,
@@ -28679,12 +28681,13 @@
 	    return function (dispatch) {
 	        dispatch({ type: _types.UPDATE_POST });
 	        _axios2.default.put(ROOT_URL + '/api/posts/' + id, { title: title, body: body }, {
-	            headers: { authorization: localStorage.getItem('token') }
+	            headers: { authorization: 'Bearer' + localStorage.getItem('token') }
 	        }).then(function (response) {
 	            dispatch(updatePostSuccess(response));
 	        });
 	    };
 	}
+
 	function updatePostSuccess(post) {
 	    return {
 	        type: _types.UPDATE_POST_SUCCESS,
@@ -28695,7 +28698,7 @@
 	function deletePost(id) {
 	    return function (dispatch) {
 	        _axios2.default.delete(ROOT_URL + '/api/posts/' + id, {
-	            headers: { authorization: localStorage.getItem('token') }
+	            headers: { authorization: 'Bearer' + localStorage.getItem('token') }
 	        }).then(function (response) {
 	            dispatch({
 	                type: _types.DELETE_POST,
